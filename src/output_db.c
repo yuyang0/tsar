@@ -109,6 +109,10 @@ send_sql_txt(int fd, int have_collect)
     if (write(fd, sqls, len) != len) {
         do_debug(LOG_ERR, "output_db write error:%s", strerror(errno));
     }
+    if(conf.debug_level <= LOG_DEBUG ){
+        sqls[len] = '\0';
+        printf("tsar2db sql: %s\n",sqls); 
+    }
 }
 
 struct sockaddr_in *
