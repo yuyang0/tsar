@@ -62,6 +62,7 @@ struct configure {
     char    output_tcp_merge[LEN_256];
 
     /* output nagios */
+    char    hostname[LEN_64];
     char    server_addr[LEN_512];
     int     server_port;
     int     cycle_time;

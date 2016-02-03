@@ -230,7 +230,10 @@ parse_line(char *buff)
     } else if (!strcmp(token, "include")) {
         get_include_conf();
 
-    } else if (!strcmp(token, "server_addr")) {
+    } else if (!strcmp(token, "hostname")) {
+        parse_string(conf.hostname);
+
+    }  else if (!strcmp(token, "server_addr")) {
         parse_string(conf.server_addr);
 
     } else if (!strcmp(token, "server_port")) {

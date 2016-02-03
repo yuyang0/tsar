@@ -29,7 +29,7 @@ output_nagios()
 {
     int         i = 0, j = 0, k = 0, l = 0, result = 0, now_time;
     char        s_time[LEN_64] = {0};
-    char        host_name[LEN_64] = {0};
+//    char        host_name[LEN_64] = {0};
     struct      module *mod;
     static char output[LEN_10M] = {0};
     static char output_err[LEN_10M] = {0};
@@ -41,7 +41,7 @@ output_nagios()
     }
 
     /* get hostname */
-    if (0 != gethostname(host_name, sizeof(host_name))) {
+    /*if (0 != gethostname(host_name, sizeof(host_name))) {
         do_debug(LOG_FATAL, "send to nagios: gethostname err, errno=%d \n", errno);
     }
     while (host_name[i]) {
@@ -49,7 +49,7 @@ output_nagios()
             host_name[i-1] = '\0';
             break;
         }
-    }
+    }*/
 
     /* update module parameter */
     conf.print_merge = MERGE_NOT;
@@ -157,7 +157,7 @@ output_nagios()
     }
     /* send to nagios server*/
     char    nagios_cmd[LEN_1024];
-    sprintf(nagios_cmd, "echo \"%s;tsar;%d;%s|%s\"|%s -H %s -p %d -to 10 -d \";\" -c %s", host_name, result, output_err, output, conf.send_nsca_cmd, conf.server_addr, conf.server_port, conf.send_nsca_conf);
+    sprintf(nagios_cmd, "echo \"%s;tsar;%d;%s|%s\"|%s -H %s -p %d -to 10 -d \";\" -c %s", conf.hostname, result, output_err, output, conf.send_nsca_cmd, conf.server_addr, conf.server_port, conf.send_nsca_conf);
     do_debug(LOG_DEBUG, "send to naigos:%s\n", nagios_cmd);
     if (system(nagios_cmd) != 0) {
         do_debug(LOG_WARN, "nsca run error:%s\n", nagios_cmd);
